@@ -1,4 +1,4 @@
-module.exports = ({ throwErr = false }) => {
+module.exports = ({ throwErr = false } = {}) => {
   return async (ctx, next) => {
     ctx.state.error = (errorInstance, status, reason, { type, trace, message } = {}) => {
       ctx.status = status
