@@ -1,6 +1,6 @@
-const errors = require('./errors')
-const cleanStackTrace = require('./clean-stack-trace')
-const errorHandler = require('./koa/error-handler')
+const errors = require('./src/errors')
+const cleanStackTrace = require('./src/clean-stack-trace')
+const errorHandler = require('./src/koa/error-handler')
 
 module.exports = {
   errors,
