@@ -6,8 +6,7 @@ function identify (secret, expiration) {
   return async (ctx, next) => {
     try {
       const token = getTokenFromHeader(ctx.request.header.authorization)
-      const { login } = verifyAccessToken(token)
-      ctx.state.user = { login }
+      ctx.state.user = verifyAccessToken(token)
     } catch (err) {
       ctx.state.user = null
     }
