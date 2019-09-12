@@ -1,9 +1,9 @@
 const errors = require('./src/errors')
 const cleanStackTrace = require('./src/clean-stack-trace')
-const koa = require('./src/koa')
+const { auth, errorHandler } = require('./src/koa')
 
 module.exports = {
   errors,
   cleanStackTrace,
-  koa
+  koa: { auth, errorHandler }
 }
