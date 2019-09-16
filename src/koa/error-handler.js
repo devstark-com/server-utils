@@ -4,7 +4,7 @@ module.exports = ({ throwErr = false } = {}) => {
       ctx.status = status
 
       const body = { status, type, message, reason }
-      if (process.env.NODE_ENV !== 'production') body.trace = trace.split('\n    ')
+      if (process.env.NODE_ENV !== 'production' && trace) body.trace = trace.split('\n    ')
       ctx.body = body
 
       if (throwErr) ctx.throw(errorInstance)
