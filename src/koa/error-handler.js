@@ -19,7 +19,7 @@ module.exports = ({ throwErr = false } = {}) => {
         if (e.errors && e.message) extraInfo.message = e.message
 
         ctx.state.error(e, 400, e.errors || e.message, extraInfo)
-      } else if (e.name === 'NotFound') ctx.state.error(e, 404, e.message, { type: e.name, trace: e.stack })
+      } else if (e.name === 'NotFoundError') ctx.state.error(e, 404, e.message, { type: e.name, trace: e.stack })
       else {
         ctx.state.error(e, 500, e.message, { type: 'ServerError', trace: e.stack }) // @todo double check secure information throwing
         console.error(e.message, e.stack)
