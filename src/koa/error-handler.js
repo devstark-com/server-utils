@@ -1,4 +1,4 @@
-module.exports = ({ throwErr = false } = {}) => {
+module.exports = ({ throwErr = false, log = () => {} } = {}) => {
   return async (ctx, next) => {
     ctx.state.error = (errorInstance, status, reason, { type, trace, message } = {}) => {
       ctx.status = status
@@ -7,6 +7,7 @@ module.exports = ({ throwErr = false } = {}) => {
       if (process.env.NODE_ENV !== 'production' && trace) body.trace = trace.split('\n    ')
       ctx.body = body
 
+      log({ status, type, message, reason })
       if (throwErr) ctx.throw(errorInstance)
     }
 
