@@ -1,7 +1,5 @@
-const errorHandler = require('./error-handler')
-const auth = require('./auth')
-
 module.exports = {
-  auth,
-  errorHandler
+  auth: require('./auth'),
+  errorHandler: require('./error-handler'),
+  debugTrace: require('./debug-trace')
 }
