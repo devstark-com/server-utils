@@ -21,10 +21,36 @@ function authenticate () {
   }
 }
 
+function permit (permissions) {
+  return async (ctx, next) => {
+    const checkObject = (permissions, ctx) => {
+      if (permissions.roles) {
+        if (!Array.isArray(permissions.roles)) permissions.roles = Array.of(permissions.roles)
+        if (!permissions.roles.includes(ctx.state.user.role)) return false
+      }
+      if (permissions.context && !permissions.context(ctx)) return false
+      return true
+    }
+
+    const isPermissionValid = (permission) => {
+      if (Array.isArray(permission)) return permission.some(isPermissionValid)
+
+      if (typeof permission === 'string' && permission !== ctx.state.user.role) return false
+      if (typeof permission === 'object' && !checkObject(permission, ctx)) return false
+
+      return true
+    }
+
+    if (!isPermissionValid(permissions)) ctx.throw(403, 'Access Denied')
+    await next()
+  }
+}
+
 module.exports = {
   getTokenFromHeader,
   authenticate,
-  identify
+  identify,
+  permit
 }
 
 function getTokenFromHeader (header) {
