@@ -46,11 +46,16 @@ function permit (permissions) {
   }
 }
 
+function fullPermissionsCheck (secret, expiration, permissions) {
+  return [identify(secret, expiration), authenticate(), permit(permissions)]
+}
+
 module.exports = {
   getTokenFromHeader,
   authenticate,
   identify,
-  permit
+  permit,
+  fullPermissionsCheck
 }
 
 function getTokenFromHeader (header) {
